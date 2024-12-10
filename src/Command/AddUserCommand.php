@@ -42,12 +42,14 @@ class AddUserCommand extends Command
     {
         $helper = $this->getHelper('question');
 
-        $nom = $input->getArgument('nom') ?? $helper->ask($input, $output, new Question('Veuillez entrer le nom de l\'utilisateur : '));
-        $prenom = $input->getArgument('prenom') ?? $helper->ask($input, $output, new Question('Veuillez entrer le prénom de l\'utilisateur : '));
-        $mail = $input->getArgument('mail') ?? $helper->ask($input, $output, new Question('Veuillez entrer l\'email de l\'utilisateur : '));
-        $password = $input->getArgument('password') ?? $helper->ask($input, $output, (new Question('Veuillez entrer le mot de passe de l\'utilisateur : '))->setHidden(true));
-        $role=$input->getArgument('role') ?? $helper->ask($input, $output, new Question('Voulez vous créer un administrateur ? y/n : '));
+        $blue = "\033[34m";
+        $reset = "\033[0m";
 
+        $nom = $input->getArgument('nom') ?? $helper->ask($input, $output, new Question($blue . 'Veuillez entrer le nom de l\'utilisateur : ' . $reset));
+        $prenom = $input->getArgument('prenom') ?? $helper->ask($input, $output, new Question($blue . 'Veuillez entrer le prénom de l\'utilisateur : ' . $reset));
+        $mail = $input->getArgument('mail') ?? $helper->ask($input, $output, new Question($blue . 'Veuillez entrer l\'email de l\'utilisateur : ' . $reset));
+        $password = $input->getArgument('password') ?? $helper->ask($input, $output, (new Question($blue . 'Veuillez entrer le mot de passe de l\'utilisateur : ' . $reset))->setHidden(true));
+        $role = $input->getArgument('role') ?? $helper->ask($input, $output, new Question($blue . 'Voulez-vous créer un administrateur ? y/n : ' . $reset));
         $roles=[];
         if(strtolower($role)==='y'){
             $roles[]='ROLE_ADMIN';
