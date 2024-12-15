@@ -31,8 +31,6 @@ class AddUserCommand extends Command
     protected function configure()
     {
         $this
-            ->addArgument('nom', InputArgument::OPTIONAL, 'Le nom de l\'utilisateur')
-            ->addArgument('prenom', InputArgument::OPTIONAL, 'Le prénom de l\'utilisateur')
             ->addArgument('mail', InputArgument::OPTIONAL, 'L\'email de l\'utilisateur')
             ->addArgument('password', InputArgument::OPTIONAL, 'Le mot de passe de l\'utilisateur')
             ->addArgument('role', InputArgument::OPTIONAL, 'role de l\'utilisateur');
