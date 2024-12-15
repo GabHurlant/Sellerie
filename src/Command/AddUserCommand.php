@@ -45,27 +45,31 @@ class AddUserCommand extends Command
         $blue = "\033[34m";
         $reset = "\033[0m";
 
-        $nom = $input->getArgument('nom') ?? $helper->ask($input, $output, new Question($blue . 'Veuillez entrer le nom de l\'utilisateur : ' . $reset));
-        $prenom = $input->getArgument('prenom') ?? $helper->ask($input, $output, new Question($blue . 'Veuillez entrer le prénom de l\'utilisateur : ' . $reset));
         $mail = $input->getArgument('mail') ?? $helper->ask($input, $output, new Question($blue . 'Veuillez entrer l\'email de l\'utilisateur : ' . $reset));
+        $output->writeln('Email: ' . $mail);
+
         $password = $input->getArgument('password') ?? $helper->ask($input, $output, (new Question($blue . 'Veuillez entrer le mot de passe de l\'utilisateur : ' . $reset))->setHidden(true));
+        $output->writeln('Password: [hidden]');
+
         $role = $input->getArgument('role') ?? $helper->ask($input, $output, new Question($blue . 'Voulez-vous créer un administrateur ? y/n : ' . $reset));
-        $roles=[];
-        if(strtolower($role)==='y'){
-            $roles[]='ROLE_ADMIN';
+        $output->writeln('Role: ' . $role);
+
+        $roles = [];
+        if (strtolower($role) === 'y') {
+            $roles[] = 'ROLE_ADMIN';
+        } else {
+            $roles[] = 'ROLE_USER';
         }
-        else{
-            $roles[]='ROLE_USER';
-        }
+        $output->writeln('Roles: ' . implode(', ', $roles));
 
         $user = new User();
-        $user->setNom($nom);
-        $user->setPrenom($prenom);
-        $user->setMail($mail);
+        $user->setEmail($mail);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
         $user->setRoles($roles);
 
+        $output->writeln('Persisting user...');
         $this->entityManager->persist($user);
+        $output->writeln('Flushing to database...');
         $this->entityManager->flush();
 
         $output->writeln('Utilisateur ajouté avec succès !');

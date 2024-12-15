@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block body %}
+{% for label, messages in app.flashes %}
+    <div class="mb-4">
+        {% for message in messages %}
+            <div class="bg-{{ label == 'error' ? 'red' : 'green' }}-100 border border-{{ label == 'error' ? 'red' : 'green' }}-400 text-{{ label == 'error' ? 'red' : 'green' }}-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">{{ label|capitalize }}!</strong>
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+<div class="container mx-auto max-w-2xl mt-10 p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-2xl font-semibold mb-6 text-center">My Reservations</h1>
+    <div class="text-center mb-6">
+        <a href="{{ path('app_equipment') }}" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+            View Inventory
+        </a>
+    </div>  
+    {% if reservations is empty %}
+        <p class="text-center">No reservations found.</p>
+    {% else %}
+        <table class="min-w-full bg-white border border-gray-200">
+            <thead>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">Equipment</th>
+                    <th class="py-3 px-6 text-left">Start Date</th>
+                    <th class="py-3 px-6 text-left">End Date</th>
+                    <th class="py-3 px-6 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+                {% for reservation in reservations %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="py-3 px-6 font-bold text-blue-600"><a href="{{ path('app_details_equipment', { id: reservation.equipment.id }) }}">{{ reservation.equipment.name }}</a></td>
+                        <td class="py-3 px-6">{{ reservation.startDate|date('j F Y') }}</td>
+                        <td class="py-3 px-6">{{ reservation.endDate|date('j F Y') }}</td>
+                        <td class="py-3 px-6">
+                            {% if reservation.endDate > "now"|date("Y-m-d H:i") %}
+                                <div class="flex items-center mb-2 space-x-2">
+                                    <a href="{{ path('reservation_edit', { id: reservation.id }) }}" class="bg-yellow-500 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 transition duration-300">
+                                        Edit
+                                    </a>
+                                    <form action="{{ path('reservation_cancel', { id: reservation.id }) }}" method="post">
+                                        <button type="submit" class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-600 transition duration-300" onclick="return confirm('Are you sure you want to cancel this reservation?');">
+                                            Cancel
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

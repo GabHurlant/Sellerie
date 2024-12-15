@@ -1,14 +1,85 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    # Vous pouvez ajouter des paramètres globaux ici si nécessaire.
+    locale: 'fr'
 
 services:
+    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Injecte automatiquement les dépendances.
-        autoconfigure: true # Enregistre automatiquement les services comme commandes, etc.
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            
+    # Admin classes for Inventory entities
+    App\Admin\EquipmentAdmin:
+        arguments: [~, App\Entity\Equipment, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Inventory", label: "Equipment" }
+
+    App\Admin\CategoryAdmin:
+        arguments: [~, App\Entity\Category, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Inventory", label: "Category" }
+
+    App\Admin\ConditionAdmin:
+        arguments: [~, App\Entity\Condition, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Inventory", label: "Condition" }
+
+    # Grouping movements and maintenance activities under Operations
+    App\Admin\ReservationAdmin:
+        arguments: [~, App\Entity\Reservation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "Reservation" }
+
+    App\Admin\MovementAdmin:
+        arguments: [~, App\Entity\Movement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "Movement" }
+
+    App\Admin\MovementTypeAdmin:
+        arguments: [~, App\Entity\MovementType, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "Movement Type" }
+
+    App\Admin\MaintenanceTypeAdmin:
+        arguments: [~, App\Entity\MaintenanceType, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "Maintenance Type" }
+
+    App\Admin\MaintenanceAdmin:
+        arguments: [~, App\Entity\Maintenance, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "Maintenance" }
+
+    App\Admin\RepairAdmin:
+        arguments: [~, App\Entity\Repair, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "Repair" }
+
+    App\Admin\HistoryAdmin:
+        arguments: [~, App\Entity\History, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Operations", label: "History" }
+
+    # Admin class for User entity
+    App\Admin\UserAdmin:
+        arguments: [~, App\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "User", label: "User" }
+
+
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
