@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipment Details{% endblock %}
+
+{% block body %}
+<div class="container mx-auto p-4">
+    <div class="bg-white shadow-md rounded p-6">
+        <h1 class="text-2xl font-bold mb-4">Equipment Details</h1>
+
+        <ul class="list-disc pl-5 mb-4">
+            <li><strong>Name:</strong> {{ equipment.name }}</li>
+            <li><strong>Description:</strong> {{ equipment.description }}</li>
+            <li><strong>Price:</strong> {{ equipment.price }} €</li>
+            <!-- Add other equipment details here -->
+        </ul>
+
+        <h2 class="text-xl font-semibold mb-2">Reservations</h2>
+        <a href="{{ path('reservation_new', { id: equipment.id }) }}" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+            Reserve
+        </a>
+        <br><br>
+        <ul class="list-disc pl-5">
+            {% for reservation in reservations %}
+                <li>
+                    Reserved by: {{ reservation.user.email }} from {{ reservation.startDate|date('m/d/Y') }} to {{ reservation.endDate|date('m/d/Y') }}
+                </li>
+            {% else %}
+                <li>No reservations for this equipment.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

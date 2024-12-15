@@ -1,0 +1,28 @@
+{# templates/reservations/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mx-auto max-w-2xl mt-10 p-6 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-semibold mb-6 text-center">Edit Reservation for {{ reservation.equipment.name }}</h1>
+
+        {{ form_start(form) }}
+            <div class="mb-4">
+                {{ form_label(form.startDate, 'Start Date', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+                {{ form_widget(form.startDate, {'attr': {'class': 'form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+                {{ form_errors(form.startDate) }}
+            </div>
+            <div class="mb-4">
+                {{ form_label(form.endDate, 'End Date', {'label_attr': {'class': 'block text-gray-700 text-sm font-bold mb-2'}}) }}
+                {{ form_widget(form.endDate, {'attr': {'class': 'form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm'}}) }}
+                {{ form_errors(form.endDate) }}
+            </div>
+            <div class="flex justify-center">
+                <button type="submit" class="btn btn-success">Confirm Changes</button>
+            </div>
+        {{ form_end(form) }}
+        
+        <div class="mt-4 text-center">
+            <a href="{{ path('user_reservations') }}" class="text-blue-500 hover:text-blue-700">Return to My Reservations</a>
+        </div>
+    </div>
+{% endblock %}

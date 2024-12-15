@@ -1,0 +1,24 @@
+# config/packages/sonata_admin.yaml
+
+sonata_admin:
+    templates:
+        dashboard: '@SonataAdmin/Core/dashboard.html.twig'
+
+    security:
+        handler: sonata.admin.security.handler.role
+
+        role_admin: ROLE_ADMIN
+        role_super_admin: ROLE_SUPER_ADMIN
+
+    access_control:
+        # N'autorise l'accès à /admin qu'aux utilisateurs avec le rôle ROLE_ADMIN
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # Autres règles d'accès si nécessaire
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY } # Permet l'accès à la page de connexion
+        # ... d'autres règles d'accès si nécessaire
+
+sonata_block:
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]

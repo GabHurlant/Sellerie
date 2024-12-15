@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% for label, messages in app.flashes %}
+    <div class="mb-4">
+        {% for message in messages %}
+            <div class="bg-{{ label == 'error' ? 'red' : 'green' }}-100 border border-{{ label == 'error' ? 'red' : 'green' }}-400 text-{{ label == 'error' ? 'red' : 'green' }}-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">{{ label|capitalize }}!</strong>
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+    <div class="container mx-auto max-w-lg mt-10 p-6 bg-white shadow-md rounded-lg">
+        <h1 class="text-2xl font-semibold mb-6 text-center">Reserve {{ equipment.name }}</h1>
+
+        {{ form_start(form) }}
+            <div class="mb-4">
+                {{ form_label(form.startDate, 'Start Date', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+                {{ form_widget(form.startDate, {'attr': {'class': 'w-full p-2 border border-gray-300 rounded'}}) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(form.endDate, 'End Date', {'label_attr': {'class': 'block text-gray-700 font-bold mb-2'}}) }}
+                {{ form_widget(form.endDate, {'attr': {'class': 'w-full p-2 border border-gray-300 rounded'}}) }}
+            </div>
+
+            <div id="error-message" class="text-red-500 text-center mb-4" style="display: none;"></div>
+
+            <div class="text-center">
+                <button type="submit" class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-600 transition duration-300">
+                    Confirm Reservation
+                </button>
+            </div>
+        {{ form_end(form) }}
+
+        {% block javascripts %}
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.querySelector('form');
+                    const errorMessageDiv = document.getElementById('error-message');
+                    
+                    form.addEventListener('submit', function (event) {
+                        const startDateInput = document.querySelector('#{{ form.startDate.vars.id }}');
+                        const endDateInput = document.querySelector('#{{ form.endDate.vars.id }}');
+                        
+                        const startDate = new Date(startDateInput.value);
+                        const endDate = new Date(endDateInput.value);
+                        
+                        errorMessageDiv.style.display = 'none'; // Reset the error message display
+
+                        if (endDate < startDate) {
+                            event.preventDefault(); // Prevent form submission
+                            errorMessageDiv.innerText = "The start date must be before the end date.";
+                            errorMessageDiv.style.display = 'block'; // Show error message
+                        }
+                    });
+                });
+            </script>
+        {% endblock %}
+    </div>
+{% endblock %}
