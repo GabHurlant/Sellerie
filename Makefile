@@ -15,6 +15,7 @@ help:
 	@echo "  make cache-clear     - Vider le cache Symfony"
 	@echo "  make db-create       - Créer la base de données"
 	@echo "  make db-migrate      - Exécuter les migrations"
+    @echo "  make db-fixtures     - Charger les fixtures"
 	@echo "  make db-reset        - Réinitialiser la base de données"
 
 # Installation des dépendances
@@ -46,6 +47,11 @@ db-create:
 .PHONY: db-migrate
 db-migrate:
 	$(CONSOLE) doctrine:migrations:migrate --no-interaction
+
+# Charger les fixtures
+.PHONY: db-fixtures
+db-fixtures:
+    $(CONSOLE) doctrine:fixtures:load --no-interaction
 
 # Réinitialiser la base de données
 .PHONY: db-reset
