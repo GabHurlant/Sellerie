@@ -13,6 +13,7 @@ help:
     @echo "  make start           - Démarrer le serveur Symfony"
     @echo "  make stop            - Arrêter le serveur Symfony"
     @echo "  make cache-clear     - Vider le cache Symfony"
+    @echo "  make db-create       - Créer la base de données"
     @echo "  make db-migrate      - Exécuter les migrations"
     @echo "  make db-reset        - Réinitialiser la base de données"
 
@@ -36,7 +37,12 @@ stop:
 cache-clear:
     $(CONSOLE) cache:clear --env=$(ENV)
 
-# Lancer les migrations
+# Création de la base de données
+.PHONY: db-create
+db-create:
+    $(CONSOLE) doctrine:database:create
+
+# Exécuter les migrations
 .PHONY: db-migrate
 db-migrate:
     $(CONSOLE) doctrine:migrations:migrate --no-interaction
