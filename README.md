@@ -14,6 +14,6 @@ Vous pouvez récupérer le dépôt Git du projet en utilisant cette commande dan
 
 ## initialisation du projet
 
-~~D~~ans un premier temps, créez un fichier `.env.local`
+Dans un premier temps, créez un fichier `.env.local`  et copiez-collez-y le contenu du fichier `.env`.
 
 Un Makefile est utilisé dans le projet afin de pouvoir tout installer
