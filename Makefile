@@ -27,43 +27,43 @@ install:
 .PHONY: start
 start:
 	@echo "Starting Symfony server..."
-	$(SYMFONY) server:stop || true
-	$(SYMFONY) server:start -d
+    $(SYMFONY) server:stop || true
+    $(SYMFONY) server:start -d
 
 # Arrêter le serveur Symfony
 .PHONY: stop
 stop:
 	@echo "Stopping Symfony server..."
-	$(SYMFONY) server:stop
+    $(SYMFONY) server:stop
 
 # Vider le cache
 .PHONY: cache-clear
 cache-clear:
 	@echo "Clearing Symfony cache..."
-	$(CONSOLE) cache:clear --env=$(ENV)
+    $(CONSOLE) cache:clear --env=$(ENV)
 
 # Création de la base de données
 .PHONY: db-create
 db-create:
-	@echo "Creating database (if not exists)..."
-	$(CONSOLE) doctrine:database:create --if-not-exists
+	@echo "Creating database..."
+	$(CONSOLE) doctrine:database:create --env=$(ENV)
 
 # Exécuter les migrations
 .PHONY: db-migrate
 db-migrate:
 	@echo "Running database migrations..."
-	$(CONSOLE) doctrine:migrations:migrate --no-interaction
+	$(CONSOLE) doctrine:migrations:migrate --no-interaction --env=$(ENV)
 
 # Charger les fixtures
 .PHONY: db-fixtures
 db-fixtures:
 	@echo "Loading database fixtures..."
-	$(CONSOLE) doctrine:fixtures:load --no-interaction
+	$(CONSOLE) doctrine:fixtures:load --no-interaction --env=$(ENV)
 
 # Réinitialiser la base de données
 .PHONY: db-reset
 db-reset:
 	@echo "Resetting the database..."
-	$(CONSOLE) doctrine:database:drop --force --if-exists
-	$(CONSOLE) doctrine:database:create
-	$(CONSOLE) doctrine:migrations:migrate --no-interaction
+	$(CONSOLE) doctrine:database:drop --force --if-exists --env=$(ENV)
+	$(CONSOLE) doctrine:database:create --env=$(ENV)
+	$(CONSOLE) doctrine:migrations:migrate --no-interaction --env=$(ENV)
