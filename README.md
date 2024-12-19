@@ -4,16 +4,16 @@ Bienvenue sur cette documentation concernant le projet **"Sellerie"** de develop
 
 Vous trouverez dans ce document toutes les information nécessaires afin de pouvoir accéder et démarrer le projet.
 
-
 ## Récupération du projet
 
 Vous pouvez récupérer le dépôt Git du projet en utilisant cette commande dans un terminal :
 
 `> git clone https://github.com/GabHurlant/beatbank.git`
 
-
 ## initialisation du projet
 
-~~D~~ans un premier temps, créez un fichier `.env.local`
+Dans un premier temps, créez un fichier `.env.local`  et copiez-collez-y le contenu du fichier `.env`.
+
+Remplacez uniquement
 
 Un Makefile est utilisé dans le projet afin de pouvoir tout installer
