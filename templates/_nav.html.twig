@@ -8,8 +8,8 @@
         
         <!-- Navigation Links -->
         <div class="flex space-x-4">
-            <a href="/home" class="text-gray-300 hover:text-white">Home</a>
-            <a href="{{ path('app_equipment') }}" class="text-gray-300 hover:text-white">Inventory</a>
+            <a href="/home" class="text-gray-300 hover:text-white">Acceuil</a>
+            <a href="{{ path('app_equipment') }}" class="text-gray-300 hover:text-white">Inventaire</a>
             {% if app.user %}
                 <a href="{{ path('user_reservations') }}" class="text-gray-300 hover:text-white">My Reservations</a>
             {% endif %}
@@ -21,10 +21,10 @@
         <!-- User Buttons (Login/Logout) -->
         <div class="flex items-center space-x-4">
             {% if app.user %}
-                <a href="{{ path('app_logout') }}" class="text-gray-300 hover:text-white font-medium">Logout</a>
+                <a href="{{ path('app_logout') }}" class="text-gray-300 hover:text-white font-medium">Déconnexion</a>
             {% else %}
-                <a href="{{ path('app_login') }}" class="text-gray-300 hover:text-white font-medium">Login</a>
-                <a href="{{ path('app_register') }}" class="text-gray-300 hover:text-white font-medium">Register</a>
+                <a href="{{ path('app_login') }}" class="text-gray-300 hover:text-white font-medium">Connexion</a>
+                <a href="{{ path('app_register') }}" class="text-gray-300 hover:text-white font-medium">Inscription</a>
             {% endif %}
         </div>
         
