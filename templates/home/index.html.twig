@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to Sellerie{% endblock %}
+{% block title %}Bienvenue chez Cuir et Crinière{% endblock %}
 
 {% block body %}
     <div class="container mx-auto px-4 py-8">
         {% if email %}
-            <h1 class="text-3xl font-bold text-center text-gray-800">Welcome {{ email }}</h1>
+            <h1 class="text-3xl font-bold text-center text-gray-800">Bienvenue {{ email }}</h1>
             <p class="mt-4 text-lg text-gray-600 text-center">
-                Explore our inventory and manage your equipment with ease.
+                Explorez notre inventaire, et gérer vos équipements avec simplicité !
             </p>
         {% else %}
-            <h1 class="text-3xl font-bold text-center text-gray-800">Welcome to Sellerie</h1>
+            <h1 class="text-3xl font-bold text-center text-gray-800">Bienvenue chez Cuir et Crinière</h1>
             <p class="mt-4 text-lg text-gray-600 text-center">
-                Sellerie is your platform dedicated to the management and inventory of equipment. Whether you are an amateur or a professional, we have everything you need to help you find the right equipment.
+                Cuir et Crinière c'est votre nouvelle plateforme consacré à la gestion de vos équipements d'équitation.
             </p>
         {% endif %}
 
         <div class="mt-8 flex justify-center">
-            <a href="{{ path('app_equipment') }}" class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">View Inventory</a>
+            <a href="{{ path('app_equipment') }}" class="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Inventaire</a>
             {% if not email %}
-                <a href="{{ path('app_register') }}" class="ml-4 bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition duration-300">Sign Up</a>
+                <a href="{{ path('app_register') }}" class="ml-4 bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition duration-300">Inscription</a>
             {% endif %}
         </div>
     </div>

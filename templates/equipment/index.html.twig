@@ -6,17 +6,17 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="text-2xl font-bold mb-4">Equipment List</h1>
+    <h1 class="text-2xl font-bold mb-4">Liste des equipements</h1>
     <div class="container mx-auto">
         <table class="min-w-full bg-white border border-gray-200" id="myTable">
             <thead>
                 <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th class="py-3 px-6 text-left">Name</th>
-                    <th class="py-3 px-6 text-left">Category</th>
-                    <th class="py-3 px-6 text-left">Price</th>
-                    <th class="py-3 px-6 text-left">Location</th>
+                    <th class="py-3 px-6 text-left">Nom</th>
+                    <th class="py-3 px-6 text-left">Categorie</th>
+                    <th class="py-3 px-6 text-left">Prix</th>
+                    <th class="py-3 px-6 text-left">Localisation</th>
                     <th class="py-3 px-6 text-left">Status</th>
-                    <th class="py-3 px-6 text-left">Availability</th>
+                    <th class="py-3 px-6 text-left">Disponibilité</th>
                     <th class="py-3 px-6 text-left">Reserve</th>
                 </tr>
             </thead>
@@ -30,9 +30,9 @@
                     <td class="py-3 px-6">{{ equipment.stat.name }}</td>
                     <td class="py-3 px-6">
                         {% if equipment.isAvailable %}
-                            <span class="text-green-600">Available</span>
+                            <span class="text-green-600">Disponible</span>
                         {% else %}
-                            <span class="text-red-600">Not available</span>
+                            <span class="text-red-600">Indisponible</span>
                         {% endif %}
                     </td>
                     <td>
@@ -41,7 +41,7 @@
                                 Reserve
                             </a>
                         {% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <p><a href="{{ path('app_login') }}" class="text-blue-500 underline">Log in</a> to reserve this equipment.</p>
+                            <p><a href="{{ path('app_login') }}" class="text-blue-500 underline">Connectez vous</a> pour réserver cet equipement.</p>
                         {% endif %}
                     </td>
                 </tr>

@@ -9,7 +9,7 @@ ENV = dev
 .PHONY: help
 help:
 	@echo "Commandes disponibles :"
-	@echo "  make project"			  - éxécute toutes les commandes pour démmarer le projet
+	@echo "  make project"		  - éxécute toutes les commandes pour démmarer le projet
 	@echo "  make install         - Installer les dépendances (Composer)"
 	@echo "  make start           - Démarrer le serveur Symfony"
 	@echo "  make stop            - Arrêter le serveur Symfony"
@@ -18,12 +18,13 @@ help:
 	@echo "  make db-migrate      - Exécuter les migrations"
 	@echo "  make db-fixtures     - Charger les fixtures"
 	@echo "  make create-user     - Créer un Utilisateur"
+	@echo "  make compile-front   - Compile les classes tailwind et construit le front"
 	@echo "  make db-reset        - Réinitialiser la base de données"
 
 
 # Exécuter toutes les commandes pour démarrer le projet
 .PHONY: project
-project: install cache-clear db-create db-migrate db-fixtures create-user start
+project: install cache-clear db-create db-migrate db-fixtures create-user start compile-front
 
 # Installation des dépendances
 .PHONY: install
@@ -72,6 +73,12 @@ db-fixtures:
 create-user:
 	@echo "Creating a new User..."
 	$(CONSOLE) app:add-user
+
+#compilation du front
+.PHONY: compile-front
+compile-front:
+	@echo "Compiling front ..."
+	$(CONSOLE) tailwind:build
 
 # Réinitialiser la base de données
 .PHONY: db-reset

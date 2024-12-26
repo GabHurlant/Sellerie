@@ -1,6 +1,6 @@
-# Sellerie
+# Cuir et Crinière
 
-Bienvenue sur cette documentation concernant le projet **"Sellerie"** de developpement back du BUT MMI de Saint-Lô.
+Bienvenue sur cette documentation concernant le projet **"Cuir et Crinière"** de developpement back du BUT MMI de Saint-Lô.
 
 Vous trouverez dans ce document toutes les information nécessaires afin de pouvoir y accéder et démarrer le projet.
 
